@@ -6,7 +6,16 @@ import os
 
 # create the application object
 app = Flask(__name__)
+
+# config
+load_dotenv()
 app.config.from_object(os.environ['APP_SETTINGS'])
+
+# create db object
+db = SQLAlchemy(app)
+
+# import db schema
+from models import *
 
 # routes
 @app.route('/')
