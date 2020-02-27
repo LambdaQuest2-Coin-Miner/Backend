@@ -15,6 +15,9 @@ env.bak/
 venv.bak/
 pip-selfcheck.json
 
+#config
+.config
+
 ### macOS ###
 # General
 .DS_Store

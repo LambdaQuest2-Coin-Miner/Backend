@@ -14,3 +14,5 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
+
+API_TOKEN="a4a380cb766a10362b072fc3b973ca2fc714725a"
