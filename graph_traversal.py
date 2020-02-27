@@ -4,6 +4,8 @@ import time
 import json
 import socket
 from config import API_TOKEN
+from world import World
+from player import Player
 
 #api endpoints
 BASE_URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv/"
@@ -55,8 +57,21 @@ def move_next_direction():
 	# keep track of - title, description, coordinates, players, items, exits, cooldown, messages
 
 
+room_graph = get_room_info()
+
+world = World()
+
+world.load_graph(room_graph)
+
+player = Player(world.starting_room)
+
+visited[player.current_room.id] = player.current_room.get_exits()
+
+
+
+
 
 
 
 # get_room_info()
-move_next_direction()
+# move_next_direction()
