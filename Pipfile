@@ -8,6 +8,7 @@ pylint = "*"
 autopep8 = "*"
 
 [packages]
+requests = "*"
 flask = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
@@ -15,6 +16,7 @@ flask-script = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 gunicorn = "*"
+
 
 [requires]
 python_version = "3.7"
