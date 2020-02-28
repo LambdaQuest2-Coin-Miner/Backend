@@ -59,7 +59,7 @@ def move_next_direction(direction):
 	# room_id is needed when keeping track of directions moved
 	# keep track of - title, description, coordinates, players, items, exits, cooldown, messages
 
-move_next_direction('n')
+move_next_direction('s')
 
 room_graph = get_room_info()
 
@@ -70,5 +70,3 @@ room_graph = get_room_info()
 # player = Player(world.starting_room)
 
 # visited[player.current_room.id] = player.current_room.get_exits()
-
-
