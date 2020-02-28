@@ -6,6 +6,7 @@ import socket
 from config import API_TOKEN
 from world import World
 from player import Player
+from cool_down_util import cooldown_calc
 
 #api endpoints
 BASE_URL = "https://lambda-treasure-hunt.herokuapp.com/api/adv/"
@@ -30,6 +31,13 @@ reverse_path = []
 visited = {}
 traversal_path = []
 
+# Get player status
+def get_player_status():
+    req = requests.post(url=STATUS_URL, headers=headers)
+    data = req.json()
+    print('player_data', data)
+    return data
+
 # Send request to init to get the current room information
 def get_room_info():
 	req = requests.get(url = INIT_URL, headers=headers)
@@ -42,21 +50,32 @@ def get_room_info():
 		#set direction/movement via a variable through the object
 
 def move_next_direction(direction):
-	# maintain tracking information 
-	# use post request with authorization token 
-	info = get_room_info()
-	DIRECTIONS = {"direction": direction}
+    # maintain tracking information 
+    # use post request with authorization token 
+    info = get_room_info()
+    DIRECTIONS = {"direction": direction}
 
-	# cooldown = info['cooldown']
-	# timeout = socket.settimeout()
-	# timeout(cooldown)
-	#req = requests.post(url = MOVE_URL, json={"direction":"n"}, headers=headers)
-	req = requests.post(url = MOVE_URL, json=DIRECTIONS, headers=headers)
-	data = req.json()
-	print('data post', data)
-#     print('data post == ', data[room], data[visited])
-	print('data cooldown: ', data['cooldown'])
-	return data
+    # cooldown = info['cooldown']
+    # timeout = socket.settimeout()
+    # timeout(cooldown)
+    #req = requests.post(url = MOVE_URL, json={"direction":"n"}, headers=headers)
+    req = requests.post(url = MOVE_URL, json=DIRECTIONS, headers=headers)
+    data = req.json()
+    print('data post', data)
+    #     print('data post == ', data[room], data[visited])
+
+    # Calculate cooldown points
+    player_status = get_player_status()
+    print(f"player cooldown points: {player_status['cooldown']}")
+
+    try:
+        cooldown_points = cooldown_calc(player_status['cooldown'], data['cooldown'], data['errors'], data['messages'])
+    except KeyError:
+        print('No messages')
+        cooldown_points = cooldown_calc(player_status['cooldown'], data['cooldown'], data['errors'])
+
+    print('cooldown points: ', cooldown_points)
+    return data
 	
 
 
