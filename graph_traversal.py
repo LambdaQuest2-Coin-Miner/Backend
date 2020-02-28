@@ -4,7 +4,6 @@ import time
 import json
 import socket
 from config import API_TOKEN
-from world import World
 from player import Player
 from cool_down_util import cooldown_calc
 
@@ -82,15 +81,6 @@ def move_next_direction(direction):
 move_next_direction('e')
 
 room_graph = get_room_info()
-
-# world = World()
-
-# world.load_graph(room_graph)
-
-# player = Player(world.starting_room)
-
-# visited[player.current_room.id] = player.current_room.get_exits()
-# player = Player(world.starting_room)
 
 
 # visited[player.current_room.id] = player.current_room.get_exits()
