@@ -81,12 +81,12 @@ def move_next_direction(direction):
 	
 def find_next_path(visited):
 	room_info = get_room_info()
-	room_id = room_info['room_id']
+	#room_id = room_info['room_id']
 	cooldown = room_info['cooldown']
 	time.sleep(cooldown)
 	queue = Queue()
 	traveled_rooms = set()
-	# queue.enqueue([room_info[room_id]])
+	# queue.enqueue([(None, room_id)])
 	# stack a list for next path
 	queue.enqueue([visited])
 
@@ -121,8 +121,12 @@ def find_next_path(visited):
 					print('enqueued')
 	return
 
+# def traversal_path_end(visited):
+# 	time.sleep(cooldown)
 
-# find_next_path('e')
+# 	next_path
+
+find_next_path('e')
 
 move_next_direction('e')
 
