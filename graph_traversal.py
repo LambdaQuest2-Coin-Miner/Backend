@@ -68,10 +68,3 @@ player = Player(world.starting_room)
 visited[player.current_room.id] = player.current_room.get_exits()
 
 
-
-
-
-
-
-# get_room_info()
-# move_next_direction()
