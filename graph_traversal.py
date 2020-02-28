@@ -41,11 +41,14 @@ def get_room_info():
 # create movement function  
 		#set direction/movement via a variable through the object
 
-def move_next_direction():
+def move_next_direction(direction):
 	# maintain tracking information 
-	#info = get_room_info()
 	# use post request with authorization token 
-	req = requests.post(url = MOVE_URL, json={"direction":"n"}, headers=headers)
+	#info = get_room_info()
+	DIRECTIONS = {"direction": direction}
+	#directions = directions
+	#req = requests.post(url = MOVE_URL, json={"direction":"n"}, headers=headers)
+	req = requests.post(url = MOVE_URL, json=DIRECTIONS, headers=headers)
 	data = req.json()
 	print('data post', data)
 #     print('data post == ', data[room], data[visited])
@@ -56,15 +59,16 @@ def move_next_direction():
 	# room_id is needed when keeping track of directions moved
 	# keep track of - title, description, coordinates, players, items, exits, cooldown, messages
 
+move_next_direction('n')
 
 room_graph = get_room_info()
 
-world = World()
+# world = World()
 
-world.load_graph(room_graph)
+# world.load_graph(room_graph)
 
-player = Player(world.starting_room)
+# player = Player(world.starting_room)
 
-visited[player.current_room.id] = player.current_room.get_exits()
+# visited[player.current_room.id] = player.current_room.get_exits()
 
 
