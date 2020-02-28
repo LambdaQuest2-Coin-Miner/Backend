@@ -22,7 +22,7 @@ class World:
 		# for i in range(0, grid_size):
 		# 	self.room_grid.append([None] * grid_size)
 		# for room_id in room_graph:
-		room = self.rooms[room_id]
+		room = self.rooms
 		# 	self.room_grid[room.x][room.y] = room
 		# 	if 'n' in room_graph[room_id][1]:
 		# 		self.rooms[room_id].connect_rooms('n', self.rooms[room_graph[room_id][1]['n']])
@@ -86,5 +86,5 @@ class World:
 			str += "#\n"
 		print(str)
 		print("#####")
-
+	
 
