@@ -60,11 +60,7 @@ def move_next_direction(direction):
 	
 
 
-<<<<<<< HEAD
-move_next_direction('s')
-=======
 move_next_direction('e')
->>>>>>> edaeac068523045e603f617837ab4d8d7f2ebc81
 
 room_graph = get_room_info()
 
