@@ -124,10 +124,9 @@ def move_next_direction(direction, visited):
 	cooldown = r['cooldown']
 	print('room_id', room_id)
 	time.sleep(cooldown)
-	#if room_id in visited and visited[room_id]['directions'][direction] != '?':
-		# next = visited[room_id]['directions'][direction]
-		# DIRECTIONS = {'next_direction': next}
-	#     print('data post == ', data[room], data[visited])
+	if room_id in visited and visited[room_id]['directions'][direction] != '?':
+		next = visited[room_id]['directions'][direction]
+		DIRECTIONS = {'next_room_id': next}
 	req = requests.post(url = MOVE_URL, json=DIRECTIONS, headers=headers)
 	# Calculate cooldown points
 	player_status = get_player_status()
