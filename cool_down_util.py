@@ -21,10 +21,10 @@ def parse_cooldown_message(messages):
         if len(is_cooldown) > 0:
             extract_cooldown_pts = [int(char)
                                     for char in is_cooldown[0] if char.isdigit()][0]
-            print(f"Cooldown points extracted: {extract_cooldown_pts}")
+            print(f"Extra cooldown points extracted: {extract_cooldown_pts}")
             total += extract_cooldown_pts
 
         else:
-            print(f"No cooldown points")
+            print(f"No extra cooldown points")
 
     return total
