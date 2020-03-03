@@ -116,10 +116,10 @@ def move_next_direction(direction, visited):
 	data = get_room_info()
 	room = data['room_id']
 	
-	cooldown = data['cooldown']
-	# timeout = socket.settimeout()
-	# timeout(cooldown)
-	time.sleep(cooldown)
+	# cooldown = data['cooldown']
+	# # timeout = socket.settimeout()
+	# # timeout(cooldown)
+	# time.sleep(cooldown)
 	#req = requests.post(url = MOVE_URL, json={"exit":"n"}, headers=headers)
 	#req = requests.post(url = MOVE_URL, json=DIRECTIONS, headers=headers)
 	# info = req.json()
@@ -152,7 +152,7 @@ def find_next_path(visited):
 	room = data['room_id']
 	cooldown = data['cooldown']
 	# room = r['room_id']
-	# cooldown = r['cooldown']
+	# # cooldown = r['cooldown']
 	time.sleep(cooldown)
 	q = Queue()
 	traveled_rooms = set()
@@ -227,7 +227,8 @@ def traversal_path_end(visited):
 		# here is to save the current room in the new room's direction
 		if room_explored not in visited:
 			data = get_room_info()
-			print('data in room_explored not in visited', data)
+			#print('data in room_explored not in visited', data)
+			
 			# room_info = get_room_info()
 			# room_info = r()
 			# print('room_info', r())
@@ -284,12 +285,9 @@ while travel_through_map is True:
 	path_loop = find_next_path(visited)
 	if path_loop is not None:
 		print('path loop printing: ', path_loop)
-		
-		# move_next_direction('s')
-		# move_next_direction('w')
 		for path in path_loop:
 			room_explored, cooldown = move_next_direction(path, visited)
-			time.sleep(cooldown)
+			#time.sleep(cooldown)
 	else:
 		travel_through_map = False
 
