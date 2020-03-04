@@ -47,6 +47,6 @@ def automove(directions):
 
 	print(f"Auto move complete current room:\n {current_room}")
 
-path = [("n", "117"),("n","108"),("n","78"),("n","22"),("n","18"),("n","12"),("n","9"),("n","3")]
+path = [("w","2"),("n","0"),("e","4"),("n","23"),("e","26"),("e","55")]
 
 automove(path)
