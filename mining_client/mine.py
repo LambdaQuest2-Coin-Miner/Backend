@@ -5,9 +5,12 @@ import json
 
 from time import time, sleep
 from datetime import timedelta
+from traversal_util import get_player_status, get_room_info
+from cool_down_util import cooldown_calc
 
 #api endpoints
 BASE_URL = "https://lambda-treasure-hunt.herokuapp.com/api/bc"
+PLAYER_STATUS = get_player_status()
 
 def proof_of_work(last_proof, difficulty):
     start_time = time()
@@ -49,34 +52,38 @@ if __name__ == '__main__':
             print(f"Received last_proof {last_proof}")
             proof = last_proof['proof']
             difficulty = last_proof['difficulty']
-            cooldown = last_proof['cooldown'] + 1
         except ValueError:
             print("Error: Non-json response")
             print(f"Response returned: {get_last_proof}")
             break
         # Generate new proof of work
         print("Start generating proof")
-        sleep(cooldown)
         new_proof = proof_of_work(proof, difficulty)
-        sleep(cooldown)
         # Submit generated proof to the /mine endpoint
         post_data = {"proof": new_proof}
         submit_new_proof = requests.post(
-            url=f"{BASE_URL}/mine", headers=headers, json=post_data)
+            url=f"{BASE_URL}/mine/", headers=headers, json=post_data)
 
         try:
             mined_coin = submit_new_proof.json()
-        except ValueError:
-            print("Error: Non-json response")
-            print(f"Response returned: {submit_new_proof}")
+            # Read response message
+            # IF successful increment number of coins mined
+            print(f"mined_coin {mined_coin}")
+            if len(mined_coin['errors']) > 0:
+                print(f"Failed mining attempt: {mined_coin['errors']}, retrying...")
+                cooldown = cooldown_calc(
+                    PLAYER_STATUS['cooldown'], mined_coin['cooldown'], mined_coin['errors'])
+                sleep(cooldown)
+            else:
+                print(f"Successful mining attempt:\n {mined_coin}")
+                # Get Lambda coin balance
+                get_coin_balance = requests.get(
+                    url=f"{BASE_URL}/get_balance/", headers=headers)
+                coin_balance = get_coin_balance.json()
+                print(f"Current Lambda Coin Balance is: \n {coin_balance}")
+                coins += 1
 
-        # Read response message
-        # IF successful increment number of coins mined
-        if mined_coin['messages'] == 'New Block Forged':
-            sleep(cooldown)
-            get_coin_balance = requests.get(url=f"{BASE_URL}/get_balance", headers=headers)
-            coins += 1
-        # If unsuccessful repeat the process
-        else:
-            print(f"Failed mining attempt: {mined_coin['messages']}")
-            sleep(cooldown)
+        except ValueError:
+            error = submit_new_proof
+            print(f"Response returned: {error} \n server overload, retrying...")
+
