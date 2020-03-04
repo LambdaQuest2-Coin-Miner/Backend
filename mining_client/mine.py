@@ -18,7 +18,7 @@ def proof_of_work(last_proof, difficulty):
     end_time = time()
     elapsed = end_time - start_time
     duration = str(timedelta(seconds=elapsed))
-    print(f"New Proof {new_proof} created in {duration}")
+    print(f"Proof {proof} created in {duration}")
 
     return proof
 
