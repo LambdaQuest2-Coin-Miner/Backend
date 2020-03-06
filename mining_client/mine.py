@@ -32,28 +32,7 @@ def valid_proof(last_proof, proof, difficulty):
     prev_proof_hash = hashlib.sha256(guess_hash).hexdigest()
     # print(f"previous proof {prev_proof_hash}")
     return prev_proof_hash[:difficulty] == '0'.zfill(difficulty)
-    # return prev_proof_hash[:difficulty] == '011010'
-# def proof_of_work(last_proof, difficulty):
-#     start_time = time()
-#     proof = 1
-#     while valid_proof(last_proof, proof, difficulty) is False:
-#         proof += 1
 
-#     end_time = time()
-#     elapsed = end_time - start_time
-#     duration = str(timedelta(seconds=elapsed))
-#     print(f"Proof {proof} created in {duration}")
-
-#     return proof
-
-
-# def valid_proof(last_proof, proof, difficulty):
-#     # Use difficulty to calculate number of leading zeroes
-#     guess_hash = hashlib.sha256(str(proof).encode()).hexdigest()
-#     prev_proof_hash = hashlib.sha256(str(last_proof).encode()).hexdigest()
-
-#     # return prev_proof_hash[:difficulty] == guess_hash[:difficulty]
-#     return prev_proof_hash[:difficulty] == "0" * difficulty
 if __name__ == '__main__':
     coins = 0
     # Load Game Token
